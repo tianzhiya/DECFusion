@@ -1,5 +1,5 @@
 # DECFusion
-Code of DECFusion: a self-supervised image fusion network for multiple image fusion tasks, including multi-modal (VIS-IR) image fusion.
+Code of DECFusion: DECFusion: A Lightweight Infrared and Visible Image Fusion Method Based on Retinex Decomposition
 
 ## Tips:<br>
 Due to file size issues, the training set has been removed from the code and the MSRS dataset can be downloaded here: https://github.com/Linfeng-Tang/MSRS

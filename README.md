@@ -22,5 +22,3 @@ author={Quanquan Xiao ,Haiyan jin,Haonan Su,etc},
 ```
 If you have any question, please email to me (1211211001@stu.xaut.edu.cn).
 
-## Acknowledgement
-Our underlying network comes from previous works: Learning a Simple Low-light Image Enhancer from Paired Low-light Instances. We thanks the authors for their contributions.

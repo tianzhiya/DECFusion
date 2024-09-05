@@ -1,12 +1,12 @@
 import os
 
 from dataset import Fusion_dataset
-from main import RGB2YCrCb, YCrCb2RGB
+from mTrain import RGB2YCrCb, YCrCb2RGB
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 import time
 import argparse
-from net.net import net
+from LightWeightNet.net import net
 
 from torch.utils.data import DataLoader
 from utils import *
@@ -27,20 +27,20 @@ def eval():
 
         visY = visY.to('cuda:0')
         ir = ir.to('cuda:0')
-        print(name)
         totalTime = totalTime + danCitime
         with torch.no_grad():
             start_time = time.time()
             VisL, VisR, VisInputY = model(visY)
+
             IrL, IrR, IrInput = model(ir)
             Lmax = torch.max(VisL, IrL)
             Rmax = torch.max(VisR, IrR)
 
             FuseY = Lmax * Rmax
             end_time = time.time()
-            danCitime = (end_time - start_time)
-            print(f"danCitime：{danCitime} 秒")
             saveFusionYWithCrCb(FuseY, image_vis_ycrcb, name)
+
+            danCitime = (end_time - start_time)
 
         if not os.path.exists(opt.output_folder):
             os.mkdir(opt.output_folder)

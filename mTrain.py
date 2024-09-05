@@ -9,7 +9,7 @@ import torch.optim as optim
 import torch.backends.cudnn as cudnn
 import torch.optim.lr_scheduler as lrs
 from torch.utils.data import DataLoader
-from LightWeightNet.net import net
+from LightWeightNet.LightWeightNet import net
 from utils import *
 
 

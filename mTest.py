@@ -6,7 +6,7 @@ from mTrain import RGB2YCrCb, YCrCb2RGB
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 import time
 import argparse
-from LightWeightNet.net import net
+from LightWeightNet.LightWeightNet import net
 
 from torch.utils.data import DataLoader
 from utils import *
@@ -15,9 +15,10 @@ from utils import *
 def eval():
     torch.set_grad_enabled(False)
     model.eval()
-    totalTime = 0
-    danCitime = 0
+
+
     count_paraa_in_MB()
+    totalTime=0
     for batch in testing_data_loader:
         with torch.no_grad():
             vis, ir, name = batch[0], batch[1], batch[2]
@@ -27,7 +28,7 @@ def eval():
 
         visY = visY.to('cuda:0')
         ir = ir.to('cuda:0')
-        totalTime = totalTime + danCitime
+
         with torch.no_grad():
             start_time = time.time()
             VisL, VisR, VisInputY = model(visY)
@@ -38,12 +39,13 @@ def eval():
 
             FuseY = Lmax * Rmax
             end_time = time.time()
+            totalTime=totalTime+(end_time-start_time)
             saveFusionYWithCrCb(FuseY, image_vis_ycrcb, name)
 
-            danCitime = (end_time - start_time)
 
         if not os.path.exists(opt.output_folder):
             os.mkdir(opt.output_folder)
+
 
     average_time = totalTime / len(testing_data_loader.dataset)
     average_time_formatted = "{:.3f}".format(average_time)
